@@ -9,7 +9,7 @@
 		  We design the regex for checking accordingly and while extracting we take this into account.
 */
 window.onload = function(){
-	sectionView();
+	//sectionView();
 	menu();
 
 	if (localStorage.valid == "1"){
@@ -26,10 +26,10 @@ window.onload = function(){
 	}
 
 	function menu() {
-		$('#cssmenu ul li').click(function(){
-		    $('#cssmenu ul li').removeClass("active");
+		$('.menu .item').click(function(){
+		    $('.menu .item').removeClass("active");
 		    $(this).addClass("active");
-		    sectionView();
+		    //sectionView();
 		});
 	}
 
@@ -40,13 +40,11 @@ window.onload = function(){
 		var bushy_pos = summary['bushy']['positive'];
 		var pagerank_neg = "<a href='" + summary['google_page_rank']['negative'] + "' target='_blank'>Read Entire Summary</a>";
 		var pagerank_pos = "<a href='" + summary['google_page_rank']['positive'] + "' target='_blank'>Read Entire Summary</a>";
-		$('#summaryContainer').html("");
-		$('#summaryContainer').append("<h3>Positive: </h3>");
-		$('#summaryContainer').append(bushy_neg);
-		$('#summaryContainer').append(pagerank_neg);
-		$('#summaryContainer').append("<h3>Negative: </h3>");
-		$('#summaryContainer').append(bushy_pos);
-		$('#summaryContainer').append(pagerank_pos);
+		
+		$('#negSumm').append(bushy_neg);
+		$('#negSumm').append(pagerank_neg);
+		$('#posSumm').append(bushy_pos);
+		$('#posSumm').append(pagerank_pos);
 	}
 
 
@@ -78,7 +76,7 @@ window.onload = function(){
 		}
 
 		$('div.loading img').css("display", "none");
-		alert(review_url);
+		//alert(review_url);
 
 		return review_url;
 	}
@@ -266,8 +264,8 @@ window.onload = function(){
 		}
 
 		//alert(pCode);
-    match_ = url.match(/http:\/\/www.\w+.\w+/g)[0];
-    var website = match_.slice(11);
+	    match_ = url.match(/http:\/\/www.\w+.\w+/g)[0];
+	    var website = match_.slice(11);
 
 		$(document).ajaxStart(function() {
 			$('div#contentShow').css("display", "none");
