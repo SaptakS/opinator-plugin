@@ -13,6 +13,15 @@ function init() {
 
 }
 
+function titleExtract() {
+	chrome.tabs.executeScript(null, {code:
+		'document.getElementById("productTitle").textContent'
+	}, function(results) {
+		localStorage.title = results;
+		//console.log(localStorage.title);
+	});
+}
+
 chrome.tabs.onActivated.addListener(function(activeInfo){
 	var url = chrome.tabs.executeScript(null, {code:"document.URL"},
 	function(results){
@@ -33,6 +42,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo){
 			else if(n != -1){
 				//valid url
 				localStorage.valid = 1;
+				titleExtract();
 			}
 
 			//alert(localStorage.valid);
@@ -63,6 +73,7 @@ chrome.windows.onFocusChanged.addListener(function(windowId) {
 			else if(n != -1){
 				//valid url
 				localStorage.valid = 1;
+				titleExtract();
 			}
 
 			//alert(localStorage.valid);
@@ -95,6 +106,7 @@ chrome.tabs.onUpdated.addListener(function(activeInfo){
 			else if(n != -1){
 				//valid url
 				localStorage.valid = 1;
+				titleExtract();
 			}
 
 			//alert(localStorage.valid);
@@ -127,6 +139,7 @@ chrome.tabs.onCreated.addListener(function(tab) {
 			else if(n != -1){
 				//valid url
 				localStorage.valid = 1;
+				titleExtract();
 			}
 
 			//alert(localStorage.valid);

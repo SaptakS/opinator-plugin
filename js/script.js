@@ -10,6 +10,7 @@
 */
 window.onload = function(){
 	//sectionView();
+	$("#crawl").click(crawl);
 	menu();
 
 	if (localStorage.valid == "1"){
@@ -67,11 +68,17 @@ window.onload = function(){
 		var snapdeal_replacing_regex = /\/dp\/|\/product\/|\/p\//g;
 		var review_url = "";
 		if (url.includes('amazon')) {
+			$('.menu .item').removeClass("active");
+			$($('menu .item')[0]).addClass('active');
 			review_url = url.replace(amazon_replacing_regex, '/product-reviews/');
 		} else if (url.includes('flipkart')) {
+			$('.menu .item').removeClass("active");
+			$($('menu .item')[1]).addClass('active');
 			review_url = url.replace(flipkart_replacing_regex, '/product-reviews/');
 			review_url += "&type=all";
 		} else if (url.includes('snapdeal')) {
+			$('.menu .item').removeClass("active");
+			$($('menu .item')[2]).addClass('active');
 			review_url += "/reviews";
 		}
 
@@ -430,5 +437,9 @@ window.onload = function(){
 			var data1 = result['counts'];
 		});*/
 
+	}
+
+	function crawl() {
+		console.log(localStorage.title);
 	}
 }

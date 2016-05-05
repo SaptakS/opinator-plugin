@@ -1,0 +1,150 @@
+<html>
+	<head>
+		<title>Opinator</title>
+		<link rel="stylesheet" href="css/styles.css">
+		<style type="text/css">
+			#summary {
+				position:fixed;
+				top:10px;
+				right:10px;
+				background-color: #f96e5b
+			}
+			#summary a{
+				text-decoration: none;
+				color:#333333;
+				font-size:2em;
+				padding: 10px 20px;
+			}
+
+			#summar a::before, #summary a::after {
+			    position: absolute;
+			    top: -3px;
+			    left: -3px;
+			    width: 100%;
+			    height: 100%;
+			    border: 3px solid #333333;
+			    content: "";
+
+			}
+			.ui.raised.container {
+				position: absolute;
+				top: 0px;
+				border: 1px solid #d4d4d5;
+    			padding: 1rem;
+    			margin-top: 2%;
+    			height: 100%;
+			}
+			.ui.inverted.grid {
+				position: fixed;
+				width: 100%;
+				padding: 2rem;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: 0;
+			}
+			#contentShow {
+				display: none;
+			}
+
+		</style>
+		<link rel="stylesheet" href="css/semantic.min.css">	
+		<script src="js/chart.js"></script>
+		<script type="text/javascript" src="js/canvasjs.min.js"></script>
+		<script src="js/jquery-1.11.1.js"></script>
+		<script src="js/script.js"></script>
+	</head>
+	<body style="width:50em; height:30em;">
+		<div class="loading" style="">
+			<img src="icons/loading.gif" style="width:100%;"/>
+			<h2 style="margin-left:45%;margin-top:-20%;color:#B3B3B3"> Loading ... </h2>
+		</div>
+		<!-- <div id = "contentShow">
+			<div id="summary">
+				<a href="xyz.pdf" target="_blank">Review Summary</a>
+			</div>
+			<div id="cssmenu">
+				<ul>
+					<li class="active"><a href="#sentiChart">Product Sentiments</a></li>
+					<li><a href="#scatterChart">Scatter Graph</a></li>
+					<li><a href="#timeChart">Variation over time</a></li>
+					<li class="last"><a href="#featuristicChart">Featuristic Analysis</a></li>
+				</ul>
+			</div>
+			<section id="sentiChart" class="chart-sections">
+				<div id="pieChartContainer" style="height: 70%; width: 100%;"></div>
+			</section>	
+			<section id="scatterChart" class="chart-sections">
+			</section>
+			<section id="scatterChart" class="chart-sections">
+				<div id="scatterChartContainer" style="height: 70%; width: 100%;"></div>
+			</section>
+			<section id="timeChart" class="chart-sections">
+				<div id="lineChartContainer" style="height: 70%; width: 100%;"></div>
+			</section>
+			<section id="featuristicChart" class="chart-sections">
+				<div id="barChartContainer" style="height: 70%; width: 100%;"></div>
+			</section>
+		</div> -->
+		<div class="ui raised container segment" id="contentShow">
+			<h1 class="ui header">Opinator</h1>
+			<div class="ui grid">
+			  <div class="four wide column">
+			    <div class="ui vertical fluid tabular menu">
+			      <a class="active item">
+			        Amazon
+			      </a>
+			      <a class="item">
+			        Flipkart
+			      </a>
+			      <a class="item">
+			        Snapdeal
+			      </a>
+			      <!-- <a class="item">
+			        Miscellaneous
+			      </a>
+			      <a class="item">
+			        Setting
+			      </a> -->
+			    </div>
+			  </div>
+			  <div class="twelve wide stretched column">
+			    <div class="ui segment">
+			      	<div class="ui two column very relaxed grid">
+			      		<div class="column">
+			      			<h4 class="ui green header">Good</h4>
+			      			<div class="content" id="goodSumm">
+			      				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, modi.
+		      				</div>
+			      		</div>
+			      		<div class="ui vertical divider">and</div>
+			      		<div class="column">
+			      			<h4 class="ui red header">Bad</h4>
+			      			<div class="content" id="negSumm">
+			      				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, modi.
+			      			</div>
+		      			</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			<div style="text-align:center"><div class="ui large button" id="crawl">crawl</div></div>
+			<footer class="ui inverted vertical footer segment">
+				<div class="ui container">
+					created by Saptak, Vivek and Shubham
+				</div>
+			</footer>
+			<!-- <div class="ui inverted grid">
+				<div class="ui six item menu">
+					<div class="item">one</div>
+					<div class="item">two</div>
+					<div class="item">three</div>
+					<div class="item">four</div>
+					<div class="item">five</div>
+					<div class="item">six</div>
+				</div>
+			</div> -->
+		</div>
+	</body>
+
+</html>
