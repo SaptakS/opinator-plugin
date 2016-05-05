@@ -11,6 +11,7 @@
 window.onload = function(){
 	//sectionView();
 	$("#crawl").click(crawl);
+  $("#show-full").click(showFull);
 	menu();
 
 	if (localStorage.valid == "1"){
@@ -39,14 +40,21 @@ window.onload = function(){
 		console.log(summary);
 		var bushy_neg = summary['bushy']['negative'];
 		var bushy_pos = summary['bushy']['positive'];
-		var pagerank_neg = "<a href='" + summary['google_page_rank']['negative'] + "' target='_blank'>Read Entire Summary</a>";
-		var pagerank_pos = "<a href='" + summary['google_page_rank']['positive'] + "' target='_blank'>Read Entire Summary</a>";
+
+    var pagerank_neg = summary['google_page_rank']['negative'];
+    var pagerank_pos = summary['google_page_rank']['positive'];
 
 		$('#negSumm').html(bushy_neg);
-		$('#negSumm').append(pagerank_neg);
+		$('#negSumm').append(pagerank_neg_link);
 		$('#goodSumm').html(bushy_pos);
-		$('#godSumm').append(pagerank_pos);
+		$('#godSumm').append(pagerank_pos_link);
+    $('#negSumm-full').html(pagerank_neg);
+    $('#goodSumm-full').html(pagerank_pos);
 	}
+
+  function showFull() {
+    $('#whole-content').toggle();
+  }
 
 
 	//to display the review
@@ -274,6 +282,25 @@ window.onload = function(){
 	}
 
 	function crawl() {
-		console.log(localStorage.title);
+		console.log(localStorage.title.trim());
+    $('div#contentShow').css("display", "none");
+    $('div.loading img').css("display", "block");
+    var data = {
+        'product_name':   localStorage.title.trim()
+    }
+
+    var posting = $.ajax({
+                        type:   "POST",
+                        url:    "http://127.0.0.1:5000/crawl/",
+                        data:   JSON.stringify(data, null, '\t'),
+                        contentType:    'application/json;charset=UTF-8',
+    });
+
+    posting.done(function(result) {
+      console.log(result);
+      $('div#contentShow').css("display", "block");
+      $('div.loading img').css("display", "none");
+      $('#crawl-link').show();
+    });
 	}
 }

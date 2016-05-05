@@ -11,7 +11,9 @@
 window.onload = function(){
 	//sectionView();
 	$("#crawl").click(crawl);
+  $("#show-full").click(showFull);
 	menu();
+
 	if (localStorage.valid == "1"){
 		extractUrl();
 
@@ -38,14 +40,21 @@ window.onload = function(){
 		console.log(summary);
 		var bushy_neg = summary['bushy']['negative'];
 		var bushy_pos = summary['bushy']['positive'];
-		var pagerank_neg = "<a href='" + summary['google_page_rank']['negative'] + "' target='_blank'>Read Entire Summary</a>";
-		var pagerank_pos = "<a href='" + summary['google_page_rank']['positive'] + "' target='_blank'>Read Entire Summary</a>";
-		
-		$('#negSumm').append(bushy_neg);
-		$('#negSumm').append(pagerank_neg);
-		$('#goodSumm').append(bushy_pos);
-		$('#goodSumm').append(pagerank_pos);
+
+    var pagerank_neg = summary['google_page_rank']['negative'];
+    var pagerank_pos = summary['google_page_rank']['positive'];
+
+		$('#negSumm').html(bushy_neg);
+		$('#negSumm').append(pagerank_neg_link);
+		$('#goodSumm').html(bushy_pos);
+		$('#godSumm').append(pagerank_pos_link);
+    $('#negSumm-full').html(pagerank_neg);
+    $('#goodSumm-full').html(pagerank_pos);
 	}
+
+  function showFull() {
+    $('#whole-content').toggle();
+  }
 
 
 	//to display the review
@@ -86,172 +95,6 @@ window.onload = function(){
 
 		return review_url;
 	}
-
-	function getSummary(product_review_url) {
-		$(document).ajaxStart(function() {
-			$('div#contentShow').css("display", "none");
-			$('div.loading img').css("display", "block");
-		});
-		$(document).ajaxComplete(function() {
-			$('div.loading img').css("display", "none");
-			$('div#contentShow').css("display", "block");
-		});
-
-/*		//Sample Code to make the extension work. Can be used for front end testing
-		var datapoints1 = [
-	        {  y: 8, indexLabel: "Excellent" },
-	        {  y: 42, indexLabel: "Good" },
-	        {  y: 10, indexLabel: "Neutral" },
-	        {  y: 35, indexLabel: "Bad"},
-	        {  y: 5, indexLabel: "Very Bad" }
-	      ];
-
-		     var datapoints2 = [
-
-		     { x: 1, y: 2 },
-		     { x: 2, y: 0},
-		     { x: 3, y: 1},
-		     { x: 4, y: 1},
-
-		     { x: 5, y: 1},
-		     { x: 6, y: 0},
-		     { x: 7, y: -1},
-		     { x: 8, y: 1},
-		     { x: 9, y: -1},
-		     { x: 10, y: -2}
-
-
-			];
-
-		var datapoints3 = [
-        { x: new Date(2012, 00, 1), y: 1.8 },
-        { x: new Date(2012, 01, 1), y: 1.9},
-        { x: new Date(2012, 02, 1), y: 2, indexLabel: "highest",markerColor: "red", markerType: "triangle"},
-        { x: new Date(2012, 03, 1), y: 1.98 },
-        { x: new Date(2012, 04, 1), y: 1.77 },
-        { x: new Date(2012, 05, 1), y: 1.5 },
-        { x: new Date(2012, 06, 1), y: 1 },
-        { x: new Date(2012, 07, 1), y: 0.3 },
-        { x: new Date(2012, 08, 1), y: -0.3 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross"},
-        { x: new Date(2012, 09, 1), y: 0.87 },
-        { x: new Date(2012, 10, 1), y: 1.1 },
-        { x: new Date(2012, 11, 1), y: 1.2 }
-        ];
-
-        var datapoints4 = [
-      {
-        type: "bar",
-        showInLegend: true,
-        legendText: "Good",
-        color: "green",
-        dataPoints: [
-        { y: 198, label: "Feature1"},
-        { y: 201, label: "Feature2"},
-        { y: 202, label: "Feature3"},
-        { y: 236, label: "Feature4"},
-        { y: 395, label: "Feature5"},
-        { y: 957, label: "Feature6"}
-        ]
-      },
-      {
-        type: "bar",
-        showInLegend: true,
-        legendText: "Neutral",
-        color: "yellow",
-        dataPoints: [
-        { y: 19, label: "Feature1"},
-        { y: 20, label: "Feature2"},
-        { y: 200, label: "Feature3"},
-        { y: 436, label: "Feature4"},
-        { y: 195, label: "Feature5"},
-        { y: 95, label: "Feature6"}
-        ]
-      },
-      {
-        type: "bar",
-        showInLegend: true,
-        legendText: "Bad",
-        color: "red",
-        dataPoints: [
-        { y: 1, label: "Feature1"},
-        { y: 21, label: "Feature2"},
-        { y: 22, label: "Feature3"},
-        { y: 23, label: "Feature4"},
-        { y: 390, label: "Feature5"},
-        { y: 9, label: "Feature6"}
-        ]
-      }
-      ];
-
-		addReview(datapoints1, datapoints2, datapoints3, datapoints4);
-		var summary = {
-					bushy: {
-							negative: "This is the short summary for negative reviews",
-							positive: "This is the short summary for positive reviews"
-						},
-					google_page_rank: {
-							negative: "abcd",
-							positive: "abcd",
-						}
-				};
-
-		var counts = {
-					negative: "91",
-					neutral: "77",
-					positive: "137",
-					very_negative: "2",
-					very_positive: "3"
-				};
-		var data1 = [];
-		for (count in counts) {
-			var data = {};
-			data['y'] = parseInt(counts[count]);
-			data['indexLabel'] = count;
-			data1.push(data);
-		}
-		addReview(data1);
-		addSummary(summary);*/
-
-
-		// The flask server
-		/*var SERVER = "http://172.19.15.248:5001/";
-
-		//here we put the code to send the product code to driverphp to extract review and do sentiment analysis.
-		var data = {
-		    'product_id':   pCode,
-		    'url':          url,
-		    'website_name': 'amazonIN',
-		}
-
-		// The transfer of data from the plugin to the server
-		var posting = $.ajax({
-		                    type:   "POST",
-		                    url:    SERVER,
-		                    data:   JSON.stringify(data, null, '\t'),
-		                    contentType:    'application/json;charset=UTF-8',
-		});
-
-		// Put the results in a div
-		posting.done(function(result) {
-			var data1 = [];
-			var counts = result['counts'];
-			for (count in counts) {
-				var data = {};
-				data['y'] = parseInt(counts[count]);
-				data['indexLabel'] = count;
-				data1.push(data);
-			}
-			addReview(data1);
-			addSummary(result['summary']);
-			alert("hello");
-			console.log("done");
-			//alert("Sentiment: " + result['sentiment'] + "\nScore: " + result['sentiment_score']);
-			console.log(result);
-			var data1 = result['counts'];
-		});*/
-
-	}
-
 
 	//extract product code and send it for review scraping and sentiment analysis.
 	function extractUrl() {
@@ -405,7 +248,7 @@ window.onload = function(){
 		var data = {
 		    'product_id':   pCode,
 		    'url':          url,
-		    'website_name': website,
+		    'website': website,
         'email': 'vivekanand1101@gmail.com'
 		}
 
@@ -437,8 +280,27 @@ window.onload = function(){
 		});*/
 
 	}
-	
+
 	function crawl() {
-		console.log(localStorage.title);
+		console.log(localStorage.title.trim());
+    $('div#contentShow').css("display", "none");
+    $('div.loading img').css("display", "block");
+    var data = {
+        'product_name':   localStorage.title.trim()
+    }
+
+    var posting = $.ajax({
+                        type:   "POST",
+                        url:    "http://127.0.0.1:5000/crawl/",
+                        data:   JSON.stringify(data, null, '\t'),
+                        contentType:    'application/json;charset=UTF-8',
+    });
+
+    posting.done(function(result) {
+      console.log(result);
+      $('div#contentShow').css("display", "block");
+      $('div.loading img').css("display", "none");
+      $('#crawl-link').show();
+    });
 	}
 }
