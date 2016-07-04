@@ -37,17 +37,23 @@ window.onload = function(){
 
 	//to display summary
 	function addSummary(summary) {
-		console.log(summary);
-		var bushy_neg = summary['bushy']['negative'];
-		var bushy_pos = summary['bushy']['positive'];
+    if (summary['bushy']['negative'] != "Empty" || summary['bushy']['positive'] != "Empty") {
+  		var bushy_neg = summary['bushy']['negative'];
+  		var bushy_pos = summary['bushy']['positive'];
 
-    var pagerank_neg = summary['google_page_rank']['negative'];
-    var pagerank_pos = summary['google_page_rank']['positive'];
+      var pagerank_neg = summary['google_page_rank']['negative'];
+      var pagerank_pos = summary['google_page_rank']['positive'];
 
-		$('#negSumm').html(bushy_neg);
-		$('#goodSumm').html(bushy_pos);
-    $('#negSumm-full').html(pagerank_neg);
-    $('#goodSumm-full').html(pagerank_pos);
+  		$('#negSumm').html(bushy_neg);
+  		$('#goodSumm').html(bushy_pos);
+      $('#negSumm-full').html(pagerank_neg);
+      $('#goodSumm-full').html(pagerank_pos);
+    } else {
+      $('#negSumm').html("Either computation is undergoing or there is not enough review."+
+                          "Please check and try later");
+      $('#goodSumm').html("Either computation is undergoing or there is not enough review."+
+                          "Please check and try later");
+    }
 	}
 
   function showFull() {
@@ -124,7 +130,7 @@ window.onload = function(){
 		});
 
 		// The flask server
-		var SERVER = "http://172.17.16.216:5001/home";
+		var SERVER = "http://172.19.19.161:5001/home";
 
 
 		//here we put the code to send the product code to driverphp to extract review and do sentiment analysis.
@@ -159,7 +165,11 @@ window.onload = function(){
         console.log("Some error occured");
       } else if (result['status'] === true) {
         console.log("Email will be sent later");
+        $('.main-content').hide();
+        $('.main-content.email-content').show();
       } else {
+        $('.main-content').hide();
+        $('.main-content.summary-content').show();
 			  addSummary(result['summary']);
       }
 			//alert("hello");
