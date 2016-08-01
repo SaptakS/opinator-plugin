@@ -106,7 +106,7 @@ window.onload = function(){
 		var extracting_regex = /\/dp\/\w+\/|\/product\/\w+(\/|\?)/g;		//product code extracting regex
 		var match = url.match(extracting_regex);					//match extracts the string which matches the regex from the url.
 		match = ""+match;
-		var pCode = "";
+		var pCode = "abcd";
 
 		/*if the extracted string has "product" then the beginning index of the product code in the string match is 9.
 		else if it contains "dp" then the beginning index of the product code in the string match is 2.*/
@@ -131,7 +131,6 @@ window.onload = function(){
 
 		// The flask server
 		var SERVER = "http://172.17.12.131:5001/home";
-
 
 		//here we put the code to send the product code to driverphp to extract review and do sentiment analysis.
 		var data = {
@@ -163,6 +162,7 @@ window.onload = function(){
       console.log("status: " + result['status']);
       if (result['status'] === false) {
         console.log("Some error occured");
+	$('.main-content').html('Error');
       } else if (result['status'] === true) {
         console.log("Email will be sent later");
         $('.main-content').hide();
@@ -173,7 +173,6 @@ window.onload = function(){
 			  addSummary(result['summary']);
       }
 			//alert("hello");
-			console.log("done");
 			//alert("Sentiment: " + result['sentiment'] + "\nScore: " + result['sentiment_score']);
 			console.log(result);
 			var data1 = result['counts'];
